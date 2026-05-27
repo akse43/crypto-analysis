@@ -15,5 +15,3 @@ combined = pd.concat(dfs, ignore_index=True)
 
 combined.to_csv(r"G:\Downloads\crypto\data\combined.csv", index=False)
 
-print(f"Tổng: {len(combined)} dòng")
-
