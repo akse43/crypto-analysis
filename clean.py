@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 
 df = pd.read_csv(r"G:\Downloads\crypto\data\combined.csv")
-
+# tinh trung binh 7 ngay
 WINDOW = 7
 
 def fill_zeros_for_coin(series):
@@ -34,8 +34,8 @@ df.loc[df['mcap_num'] == 0, 'mcap_num'] = np.nan
 df['date_parsed'] = pd.to_datetime(df['date'], format='ISO8601')
 df = df.sort_values(['coin_name', 'date_parsed']).reset_index(drop=True)
 
-before = df['mcap_num'].isna().sum()
-print(f"Tổng dòng market_cap = 0: {before:,}")
+
+
 
 parts = []
 for coin, group in df.groupby('coin_name', sort=False):
@@ -46,8 +46,6 @@ for coin, group in df.groupby('coin_name', sort=False):
 df_clean = pd.concat(parts).sort_values(['coin_name', 'date_parsed']).reset_index(drop=True)
 df_clean['market_cap'] = df_clean['mcap_num'].fillna(0)
 
-after = df_clean['mcap_num'].isna().sum()
-print(f"Đã fill: {before - after:,} dòng | Còn lại: {after:,} dòng")
 
 df_clean['coin_name'] = df_clean['coin_name'].str.capitalize()
 
